@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Visitour</string>
+    <string name="subtitulo">Inicia sesion o registrate</string>
+    <string name="hint_email">E-Mail</string>
+    <string name="hint_pass">Password</string>
+    <string name="Main_Iniciar_sesion">Iniciar Sesión</string>
+    <string name="Main_Registrarse">Registrarse</string>
+    <string name="registrate">Registrate</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_repetir_password">Repetir password</string>
+    <string name="hint_apellido">Apellido</string>
+</resources>
