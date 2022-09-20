@@ -10,4 +10,14 @@
     <string name="hint_password">Password</string>
     <string name="hint_repetir_password">Repetir password</string>
     <string name="hint_apellido">Apellido</string>
+    <string name="toast_pass_no_coincide">Password no coincide</string>
+    <string name="validation_correo_valido">Ingrese un correo valido</string>
+    <string name="Toast_Registro_Satisfactorio">Registro satisfactorio</string>
+    <string name="Toast_error_interno">Error interno</string>
+    <string name="toast_ErrorInterno">Errror Interno</string>
+    <string name="hint_nacionalidad">Nacionalidad</string>
+    <string name="toast_registro_satisfactorio">Registro satisfactorio</string>
+    <string name="hint_telefono">Telefono</string>
+    <string name="toast_login_incorrecto">Correo o password incorrectos</string>
+    <string name="toast_login_exitoso">Inicio de sesion exitoso</string>
 </resources>
