@@ -16,7 +16,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".registro.HomePageActivity"
+            android:name=".registro.pags.ItemDetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".registro.pags.RestaurantesActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".registro.pags.LugaresActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

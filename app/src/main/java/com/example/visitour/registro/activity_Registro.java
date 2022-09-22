@@ -45,6 +45,11 @@ public class activity_Registro extends AppCompatActivity {
 
         mAwesomeValidation.addValidation(vpass, pass, getString(R.string.toast_pass_no_coincide));
         mAwesomeValidation.addValidation(email, Patterns.EMAIL_ADDRESS,getString(R.string.validation_correo_valido));
+        mAwesomeValidation.addValidation(nombre, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", "Cambo obligatorio");
+        mAwesomeValidation.addValidation(apellido, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", "Cambo obligatorio");
+        mAwesomeValidation.addValidation(nacionalidad, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", "Cambo obligatorio");
+        mAwesomeValidation.addValidation(telefono, "^[0-9\\s]{1,}[\\.]{0,1}[0-9\\s]{0,}$", "Igrese un telefono valido");
+
 
         botton_registrarse.setOnClickListener(new View.OnClickListener() {
             @Override
