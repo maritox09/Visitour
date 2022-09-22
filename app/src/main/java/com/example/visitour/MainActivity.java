@@ -16,8 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.visitour.databinding.ActivityMainBinding;
-import com.example.visitour.registro.HomePageActivity;
 import com.example.visitour.registro.activity_Registro;
+import com.example.visitour.registro.pags.LugaresActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, getText(R.string.toast_login_incorrecto), Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(MainActivity.this, getText(R.string.toast_login_exitoso), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), LugaresActivity.class);
                                     intent.putExtra("id", Integer.parseInt(mId));
                                     startActivity(intent);
                                 }

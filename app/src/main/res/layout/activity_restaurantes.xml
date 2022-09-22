@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registro.pags.RestaurantesActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/navigationBar"
+            app:itemBackground="@color/white"
+            app:itemIconTint="@android:color/holo_red_dark"
+            app:itemTextColor="@android:color/holo_red_dark"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/nav_menu"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/shim"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_att"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/shim"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_ord"
+            android:layout_toRightOf="@id/shim"
+            android:layout_alignParentRight="true"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_lugares"
+            android:layout_above="@id/navigationBar"
+            android:layout_below="@id/spinner_ord"/>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
