@@ -20,6 +20,5 @@
     <string name="hint_telefono">Telefono</string>
     <string name="toast_login_incorrecto">Correo o password incorrectos</string>
     <string name="toast_login_exitoso">Inicio de sesion exitoso</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
