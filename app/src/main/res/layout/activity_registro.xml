@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/telefono"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:importantForAutofill="no"
         android:imeOptions="actionNext"/>
 
@@ -113,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pass"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:importantForAutofill="no"
         android:imeOptions="actionDone"/>
 
