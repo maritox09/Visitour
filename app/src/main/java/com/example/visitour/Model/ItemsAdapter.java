@@ -41,8 +41,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         View contactView = inflater.inflate(R.layout.item_dinamico, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         TextView urlTextView = holder.mUrl;
         urlTextView.setText(item.mImageUrl);
         TextView ratingTextView = holder.mRating;
-        ratingTextView.setText(String.valueOf(item.mRating)+"/5");
+        ratingTextView.setText(String.format("%d/5", item.mRating));
 
         ImageView bookImage = holder.mItemImage;
 
@@ -70,10 +69,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         return mItems.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView mItemImage;
-        private TextView mItemNombre, mItemDepto, mUrl, mRating;
+        private final ImageView mItemImage;
+        private final TextView mItemNombre;
+        private final TextView mItemDepto;
+        private final TextView mUrl;
+        private final TextView mRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
