@@ -1,5 +1,6 @@
 package com.example.visitour.Model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,11 +16,34 @@ import com.bumptech.glide.Glide;
 import com.example.visitour.R;
 import com.example.visitour.registro.pags.ItemDetailActivity;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
     private List<Item> mItems;
     private Context context;
+
+    Comparator<Item> compareByNombre = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return o1.getmNombre().compareTo(o2.getmNombre());
+        }
+    };
+
+    Comparator<Item> compareByRating = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return o1.getmRating().compareTo(o2.getmRating());
+        }
+    };
+
+    Comparator<Item> compareByDepto = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return o1.getmDepto().compareTo(o2.getmDepto());
+        }
+    };
 
     public ItemsAdapter(List<Item> mItems) {
         this.mItems = mItems;
@@ -94,5 +118,35 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             intent.putExtra("eUrl",mUrl.getText().toString());
             view.getContext().startActivity(intent);
         }
+    }
+
+    @SuppressLint("NewApi")
+    public void Ord_Nom_Asc(boolean asc){
+        if(asc){
+            Collections.sort(mItems,compareByNombre.reversed());
+        } else {
+            Collections.sort(mItems, compareByNombre);
+        }
+        reloadData(mItems);
+    }
+
+    @SuppressLint("NewApi")
+    public void Ord_Dep_Asc(boolean asc){
+        if(asc){
+            Collections.sort(mItems,compareByDepto);
+        } else {
+            Collections.sort(mItems, compareByDepto.reversed());
+        }
+        reloadData(mItems);
+    }
+
+    @SuppressLint("NewApi")
+    public void Ord_Rat_Asc(boolean asc){
+        if(asc){
+            Collections.sort(mItems,compareByRating);
+        } else {
+            Collections.sort(mItems, compareByRating.reversed());
+        }
+        reloadData(mItems);
     }
 }
