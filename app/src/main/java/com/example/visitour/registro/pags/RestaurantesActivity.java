@@ -45,27 +45,6 @@ public class RestaurantesActivity extends AppCompatActivity {
         binding = ActivityRestaurantesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Comparator<Item> compareByNombre = new Comparator<Item>() {
-            @Override
-            public int compare(Item o1, Item o2) {
-                return o1.getmNombre().compareTo(o2.getmNombre());
-            }
-        };
-
-        Comparator<Item> compareByRating = new Comparator<Item>() {
-            @Override
-            public int compare(Item o1, Item o2) {
-                return o1.getmRating().compareTo(o2.getmRating());
-            }
-        };
-
-        Comparator<Item> compareByDepto = new Comparator<Item>() {
-            @Override
-            public int compare(Item o1, Item o2) {
-                return o1.getmDepto().compareTo(o2.getmDepto());
-            }
-        };
-
         mApi = ApiClient.getInstance().create(ItemsApi.class);
 
         RecyclerView rvBooks = findViewById(R.id.rv_lugares);
@@ -81,10 +60,9 @@ public class RestaurantesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 mItems = response.body();
-                Collections.sort(mItems,compareByRating);
-                Collections.reverse(mItems);
                 order_asc = false;
                 adapter.reloadData(mItems);
+                adapter.Ord_Rat_Asc(false);
             }
 
             @Override
@@ -126,32 +104,26 @@ public class RestaurantesActivity extends AppCompatActivity {
                     case "Popularidad":
                         if(order_asc){
                             try {
-                                Collections.sort(mItems,compareByRating);
-                                adapter.reloadData(mItems);
+                                adapter.Ord_Rat_Asc(true);
                             } catch (Exception e){break;}
                         } else {
                             try {
-                                Collections.sort(mItems,compareByRating.reversed());
-                                adapter.reloadData(mItems);
+                                adapter.Ord_Rat_Asc(false);
                             } catch (Exception e) {}
                         }
                         break;
                     case "Nombre":
                         if(order_asc){
-                            Collections.sort(mItems,compareByNombre.reversed());
-                            adapter.reloadData(mItems);
+                            adapter.Ord_Nom_Asc(true);
                         } else {
-                            Collections.sort(mItems,compareByNombre);
-                            adapter.reloadData(mItems);
+                            adapter.Ord_Nom_Asc(false);
                         }
                         break;
                     case "Departamento":
                         if(order_asc){
-                            Collections.sort(mItems,compareByDepto.reversed());
-                            adapter.reloadData(mItems);
+                            adapter.Ord_Dep_Asc(true);
                         } else {
-                            Collections.sort(mItems,compareByDepto);
-                            adapter.reloadData(mItems);
+                            adapter.Ord_Dep_Asc(false);
                         }
                         break;
                 }
