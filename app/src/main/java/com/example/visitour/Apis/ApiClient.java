@@ -1,4 +1,4 @@
-package com.example.visitour.REST;
+package com.example.visitour.Apis;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

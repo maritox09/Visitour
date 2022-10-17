@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.visitour.Beans.Item;
 import com.example.visitour.R;
-import com.example.visitour.registro.pags.ItemDetailActivity;
+import com.example.visitour.ItemDetailActivity;
 
 import java.util.Collections;
 import java.util.Comparator;

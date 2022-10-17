@@ -15,9 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.visitour.databinding.ActivityMainBinding;
-import com.example.visitour.registro.activity_Registro;
-import com.example.visitour.registro.pags.LugaresActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,12 +22,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class LandingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityLandingBinding mainBinding = ActivityLandingBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
 
         EditText textView_email = mainBinding.usuario;
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         button_Registrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_registro = new Intent(getApplicationContext(),activity_Registro.class);
+                Intent intent_registro = new Intent(getApplicationContext(), RegistroActivity.class);
                 startActivity(intent_registro);
             }
         });
@@ -74,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 if (mId == "null") {
-                                    Toast.makeText(MainActivity.this, getText(R.string.toast_login_incorrecto), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LandingActivity.this, getText(R.string.toast_login_incorrecto), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this, getText(R.string.toast_login_exitoso), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), LugaresActivity.class);
+                                    Toast.makeText(LandingActivity.this, getText(R.string.toast_login_exitoso), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), ItemsActivity.class);
                                     intent.putExtra("id", Integer.parseInt(mId));
                                     startActivity(intent);
                                 }
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(MainActivity.this, getText(R.string.toast_ErrorInterno),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LandingActivity.this, getText(R.string.toast_ErrorInterno),Toast.LENGTH_SHORT).show();
                             }
                         }){
                     @Override
@@ -98,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                         return params;
                     }
                 };
-                RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+                RequestQueue requestQueue = Volley.newRequestQueue(LandingActivity.this);
                 requestQueue.add(stringRequest);
             }
         });

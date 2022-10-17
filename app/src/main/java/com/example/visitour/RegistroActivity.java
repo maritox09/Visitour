@@ -1,4 +1,4 @@
-package com.example.visitour.registro;
+package com.example.visitour;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,13 +18,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.example.visitour.MainActivity;
-import com.example.visitour.R;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class activity_Registro extends AppCompatActivity {
+public class RegistroActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +66,15 @@ public class activity_Registro extends AppCompatActivity {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    Toast.makeText(activity_Registro.this, getText(R.string.toast_registro_satisfactorio), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(activity_Registro.this, MainActivity.class);
+                                    Toast.makeText(RegistroActivity.this, getText(R.string.toast_registro_satisfactorio), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegistroActivity.this, LandingActivity.class);
                                     startActivity(intent);
                                 }
                             },
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(activity_Registro.this, getText(R.string.toast_ErrorInterno),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistroActivity.this, getText(R.string.toast_ErrorInterno),Toast.LENGTH_SHORT).show();
                                 }
                             }){
                         @Override
@@ -92,7 +90,7 @@ public class activity_Registro extends AppCompatActivity {
                             return params;
                         }
                     };
-                    RequestQueue requestQueue = Volley.newRequestQueue(activity_Registro.this);
+                    RequestQueue requestQueue = Volley.newRequestQueue(RegistroActivity.this);
                     requestQueue.add(stringRequest);
                 }
             }

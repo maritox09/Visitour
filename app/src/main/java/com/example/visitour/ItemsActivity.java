@@ -1,11 +1,10 @@
-package com.example.visitour.registro.pags;
+package com.example.visitour;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,36 +17,27 @@ import com.example.visitour.Adapters.ItemsAdapter;
 import com.example.visitour.MVP_Item.ItemPresenter.IItemPresenter;
 import com.example.visitour.MVP_Item.ItemPresenter.ItemPresenter;
 import com.example.visitour.MVP_Item.ItemView.IItemView;
-import com.example.visitour.R;
-import com.example.visitour.REST.ApiClient;
-import com.example.visitour.REST.ItemsApi;
-import com.example.visitour.databinding.ActivityLugaresBinding;
+import com.example.visitour.databinding.ActivityItemsBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class LugaresActivity extends AppCompatActivity implements IItemView {
+public class ItemsActivity extends AppCompatActivity implements IItemView {
 
     private List<Item> mItems;
-    private boolean order_asc;
+    private boolean order_asc, lugares;
     private ItemsAdapter adapter;
-    ActivityLugaresBinding binding;
-    Spinner spinnerAtt, spinnerOrd;
-
     private IItemPresenter itemPresenter;
-
-    String[] att = {"Popularidad", "Nombre", "Departamento"};
-    String[] ord = {"Descendente","Ascendente"};
+    private ActivityItemsBinding binding;
+    private Spinner spinnerAtt, spinnerOrd;
+    private String[] att = {"Popularidad", "Nombre", "Departamento"};
+    private String[] ord = {"Descendente","Ascendente"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLugaresBinding.inflate(getLayoutInflater());
+        binding = ActivityItemsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         itemPresenter = new ItemPresenter(this);
@@ -60,9 +50,16 @@ public class LugaresActivity extends AppCompatActivity implements IItemView {
         binding.navigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.ic_lugares:
+                    if(!lugares){
+                        itemPresenter.GetLugares();
+                        lugares = true;
+                    }
                     break;
                 case R.id.ic_restaurantes:
-                    startActivity(new Intent(this,RestaurantesActivity.class));
+                    if(lugares){
+                        itemPresenter.GetRestaurantes();
+                        lugares = false;
+                    }
                     break;
                 case R.id.ic_perfil:
                     break;
@@ -72,8 +69,8 @@ public class LugaresActivity extends AppCompatActivity implements IItemView {
 
         spinnerAtt = binding.spinnerAtt;
         spinnerOrd = binding.spinnerOrd;
-        ArrayAdapter<String> arrayAdapterAtt = new ArrayAdapter<String>(LugaresActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,att);
-        ArrayAdapter<String> arrayAdapterOrd = new ArrayAdapter<String>(LugaresActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,ord);
+        ArrayAdapter<String> arrayAdapterAtt = new ArrayAdapter<String>(ItemsActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,att);
+        ArrayAdapter<String> arrayAdapterOrd = new ArrayAdapter<String>(ItemsActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,ord);
 
         arrayAdapterAtt.setDropDownViewResource(androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item);
         arrayAdapterOrd.setDropDownViewResource(androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item);
@@ -82,6 +79,7 @@ public class LugaresActivity extends AppCompatActivity implements IItemView {
         spinnerOrd.setAdapter(arrayAdapterOrd);
 
         itemPresenter.GetLugares();
+        lugares = true;
 
         spinnerAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("NewApi")
@@ -165,6 +163,6 @@ public class LugaresActivity extends AppCompatActivity implements IItemView {
 
     @Override
     public void OnItemFailure(String msg) {
-        Toast.makeText(LugaresActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ItemsActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }

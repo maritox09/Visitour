@@ -1,14 +1,12 @@
 package com.example.visitour.MVP_Item.ItemModel;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.widget.Toast;
 
 import com.example.visitour.Beans.Item;
 import com.example.visitour.MVP_Item.ItemPresenter.IItemPresenter;
 import com.example.visitour.R;
-import com.example.visitour.REST.ApiClient;
-import com.example.visitour.REST.ItemsApi;
+import com.example.visitour.Apis.ApiClient;
+import com.example.visitour.Apis.ItemsApi;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.visitour.registro.pags;
+package com.example.visitour;
 
 import androidx.appcompat.app.AppCompatActivity;
 
