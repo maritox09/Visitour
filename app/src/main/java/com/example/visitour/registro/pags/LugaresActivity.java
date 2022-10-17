@@ -34,7 +34,7 @@ public class LugaresActivity extends AppCompatActivity {
 
     private List<Item> mItems;
     private ItemsApi mApi;
-    private boolean order_asc;
+    private boolean order_asc, lugares = true;
     ActivityLugaresBinding binding;
     Spinner spinnerAtt, spinnerOrd;
     String[] att = {"Popularidad", "Nombre", "Departamento"};
@@ -49,11 +49,8 @@ public class LugaresActivity extends AppCompatActivity {
         mApi = ApiClient.getInstance().create(ItemsApi.class);
 
         RecyclerView rvBooks = findViewById(R.id.rv_lugares);
-        // Create adapter passing in the sample user data
         ItemsAdapter adapter = new ItemsAdapter(new ArrayList<>());
-        // Attach the adapter to the recyclerview to populate items
         rvBooks.setAdapter(adapter);
-        // Set layout manager to position the items
         rvBooks.setLayoutManager(new LinearLayoutManager(this));
 
         Call<List<Item>> bookCall = mApi.getLugares();
