@@ -11,6 +11,11 @@
         android:title="Restaurantes"/>
 
     <item
+        android:id="@+id/ic_favoritos"
+        android:icon="@drawable/ic_favorite"
+        android:title="Favoritos"/>
+
+    <item
         android:id="@+id/ic_perfil"
         android:icon="@drawable/ic_perfil"
         android:title="Mi perfil"/>
