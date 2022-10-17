@@ -85,8 +85,8 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
             @SuppressLint("NewApi")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String v = parent.getItemAtPosition(position).toString();
-                switch (v){
+                String aspecto = parent.getItemAtPosition(position).toString();
+                switch (aspecto){
                     case "Popularidad":
                         if(order_asc){
                             try {
@@ -125,8 +125,8 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
             @SuppressLint("NewApi")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String v = parent.getItemAtPosition(position).toString();
-                switch (v){
+                String orden = parent.getItemAtPosition(position).toString();
+                switch (orden){
                     case "Descendente":
                         try {
                             if(order_asc){
