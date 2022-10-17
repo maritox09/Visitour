@@ -130,10 +130,7 @@ public class RestaurantesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+            public void onNothingSelected(AdapterView<?> parent) {}});
 
         spinnerOrd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("NewApi")
@@ -161,10 +158,6 @@ public class RestaurantesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+            public void onNothingSelected(AdapterView<?> parent) {}});
     }
 }

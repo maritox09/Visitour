@@ -144,11 +144,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
     @SuppressLint("NewApi")
     public void Ord_Rat_Asc(boolean asc){
-        if(asc){
-            Collections.sort(mItems,compareByRating);
-        } else {
-            Collections.sort(mItems, compareByRating.reversed());
-        }
-        reloadData(mItems);
+        try {
+            if(asc){
+                Collections.sort(mItems,compareByRating);
+            } else {
+                Collections.sort(mItems, compareByRating.reversed());
+            }
+            reloadData(mItems);
+        } catch (Exception e ){}
     }
 }
