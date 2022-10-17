@@ -11,11 +11,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
-import com.example.visitour.Model.Item;
-import com.example.visitour.Model.ItemsAdapter;
+import com.example.visitour.Beans.Item;
+import com.example.visitour.Adapters.ItemsAdapter;
+import com.example.visitour.MVP_Item.ItemPresenter.IItemPresenter;
+import com.example.visitour.MVP_Item.ItemPresenter.ItemPresenter;
+import com.example.visitour.MVP_Item.ItemView.IItemView;
 import com.example.visitour.R;
 import com.example.visitour.REST.ApiClient;
 import com.example.visitour.REST.ItemsApi;
@@ -23,20 +25,22 @@ import com.example.visitour.databinding.ActivityLugaresBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LugaresActivity extends AppCompatActivity {
+public class LugaresActivity extends AppCompatActivity implements IItemView {
 
     private List<Item> mItems;
-    private ItemsApi mApi;
     private boolean order_asc;
+    private ItemsAdapter adapter;
     ActivityLugaresBinding binding;
     Spinner spinnerAtt, spinnerOrd;
+
+    private IItemPresenter itemPresenter;
+
     String[] att = {"Popularidad", "Nombre", "Departamento"};
     String[] ord = {"Descendente","Ascendente"};
 
@@ -46,32 +50,12 @@ public class LugaresActivity extends AppCompatActivity {
         binding = ActivityLugaresBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mApi = ApiClient.getInstance().create(ItemsApi.class);
+        itemPresenter = new ItemPresenter(this);
 
-        RecyclerView rvBooks = findViewById(R.id.rv_lugares);
-        // Create adapter passing in the sample user data
-        ItemsAdapter adapter = new ItemsAdapter(new ArrayList<>());
-        // Attach the adapter to the recyclerview to populate items
-        rvBooks.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvBooks.setLayoutManager(new LinearLayoutManager(this));
-
-        Call<List<Item>> bookCall = mApi.getLugares();
-        bookCall.enqueue(new Callback<List<Item>>() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                mItems = response.body();
-                order_asc = false;
-                adapter.reloadData(mItems);
-                adapter.Ord_Rat_Asc(false);
-            }
-
-            @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-                Toast.makeText(LugaresActivity.this, "Error al obtener los libros", Toast.LENGTH_SHORT).show();
-            }
-        });
+        RecyclerView rvItems = findViewById(R.id.rv_lugares);
+        adapter = new ItemsAdapter(new ArrayList<>());
+        rvItems.setAdapter(adapter);
+        rvItems.setLayoutManager(new LinearLayoutManager(this));
 
         binding.navigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -96,6 +80,8 @@ public class LugaresActivity extends AppCompatActivity {
 
         spinnerAtt.setAdapter(arrayAdapterAtt);
         spinnerOrd.setAdapter(arrayAdapterOrd);
+
+        itemPresenter.GetLugares();
 
         spinnerAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("NewApi")
@@ -167,5 +153,18 @@ public class LugaresActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void OnItemSuccess(List<Item> mItems) {
+        this.mItems = mItems;
+        order_asc = false;
+        adapter.reloadData(mItems);
+        adapter.Ord_Rat_Asc(false);
+    }
+
+    @Override
+    public void OnItemFailure(String msg) {
+        Toast.makeText(LugaresActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }

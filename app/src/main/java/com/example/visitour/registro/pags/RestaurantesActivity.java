@@ -13,8 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.visitour.Model.Item;
-import com.example.visitour.Model.ItemsAdapter;
+import com.example.visitour.Beans.Item;
+import com.example.visitour.Adapters.ItemsAdapter;
+import com.example.visitour.MVP_Item.ItemPresenter.IItemPresenter;
+import com.example.visitour.MVP_Item.ItemPresenter.ItemPresenter;
+import com.example.visitour.MVP_Item.ItemView.IItemView;
 import com.example.visitour.R;
 import com.example.visitour.REST.ApiClient;
 import com.example.visitour.REST.ItemsApi;
@@ -22,18 +25,19 @@ import com.example.visitour.databinding.ActivityRestaurantesBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestaurantesActivity extends AppCompatActivity {
+public class RestaurantesActivity extends AppCompatActivity implements IItemView {
 
     private List<Item> mItems;
-    private ItemsApi mApi;
     private boolean order_asc;
+    private IItemPresenter itemPresenter;
+    private ItemsAdapter adapter;
+
     ActivityRestaurantesBinding binding;
     Spinner spinnerAtt, spinnerOrd;
     String[] att = {"Popularidad", "Nombre", "Departamento"};
@@ -45,31 +49,12 @@ public class RestaurantesActivity extends AppCompatActivity {
         binding = ActivityRestaurantesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mApi = ApiClient.getInstance().create(ItemsApi.class);
+        itemPresenter = new ItemPresenter(this);
 
         RecyclerView rvBooks = findViewById(R.id.rv_lugares);
-        // Create adapter passing in the sample user data
-        ItemsAdapter adapter = new ItemsAdapter(new ArrayList<>());
-        // Attach the adapter to the recyclerview to populate items
+        adapter = new ItemsAdapter(new ArrayList<>());
         rvBooks.setAdapter(adapter);
-        // Set layout manager to position the items
         rvBooks.setLayoutManager(new LinearLayoutManager(this));
-
-        Call<List<Item>> bookCall = mApi.getRestaurantes();
-        bookCall.enqueue(new Callback<List<Item>>() {
-            @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                mItems = response.body();
-                order_asc = false;
-                adapter.reloadData(mItems);
-                adapter.Ord_Rat_Asc(false);
-            }
-
-            @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-                Toast.makeText(RestaurantesActivity.this, "Error al obtener los libros", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         binding.navigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -94,6 +79,8 @@ public class RestaurantesActivity extends AppCompatActivity {
 
         spinnerAtt.setAdapter(arrayAdapterAtt);
         spinnerOrd.setAdapter(arrayAdapterOrd);
+
+        itemPresenter.GetRestaurantes();
 
         spinnerAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("NewApi")
@@ -159,5 +146,18 @@ public class RestaurantesActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}});
+    }
+
+    @Override
+    public void OnItemSuccess(List<Item> mItems) {
+        this.mItems = mItems;
+        order_asc = false;
+        adapter.reloadData(mItems);
+        adapter.Ord_Rat_Asc(false);
+    }
+
+    @Override
+    public void OnItemFailure(String msg) {
+        Toast.makeText(RestaurantesActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }

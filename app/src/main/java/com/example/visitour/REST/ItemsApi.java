@@ -1,6 +1,6 @@
 package com.example.visitour.REST;
 
-import com.example.visitour.Model.Item;
+import com.example.visitour.Beans.Item;
 
 import java.util.List;
 

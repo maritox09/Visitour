@@ -1,8 +1,6 @@
-package com.example.visitour.Model;
+package com.example.visitour.Beans;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Comparator;
 
 public class Item{
     @SerializedName("nombre")

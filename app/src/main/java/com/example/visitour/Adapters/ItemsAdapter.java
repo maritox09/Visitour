@@ -1,4 +1,4 @@
-package com.example.visitour.Model;
+package com.example.visitour.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.visitour.Beans.Item;
 import com.example.visitour.R;
 import com.example.visitour.registro.pags.ItemDetailActivity;
 
