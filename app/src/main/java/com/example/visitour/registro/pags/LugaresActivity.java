@@ -34,7 +34,7 @@ public class LugaresActivity extends AppCompatActivity {
 
     private List<Item> mItems;
     private ItemsApi mApi;
-    private boolean order_asc;
+    private boolean order_asc, lugars;
     ActivityLugaresBinding binding;
     Spinner spinnerAtt, spinnerOrd;
     String[] att = {"Popularidad", "Nombre", "Departamento"};
