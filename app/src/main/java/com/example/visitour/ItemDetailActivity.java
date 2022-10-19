@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -34,6 +35,7 @@ public class ItemDetailActivity extends AppCompatActivity implements IDetailsVie
     ImageButton detailsWaze, detailsMaps;
     ToggleButton detailsFav;
     SharedPreferences preferences;
+    RatingBar detailsRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class ItemDetailActivity extends AppCompatActivity implements IDetailsVie
         detailsFav = binding.favoriteToggleDetalle;
         detailsWaze = binding.itemDetailWaze;
         detailsMaps = binding.itemDetailMaps;
+        detailsRating = binding.itemRatingDetails;
 
         Bundle bundle = getIntent().getExtras();
 
@@ -67,6 +70,7 @@ public class ItemDetailActivity extends AppCompatActivity implements IDetailsVie
         detailsDescripcion.setText(item.mDescripcion);
         Glide.with(this).load(item.mImageUrl).into(detailsImage);
         detailsFav.setChecked(item.mFavorito);
+        detailsRating.setRating(item.mRating);
 
         IFavButtonModel favButtonModel = new FavButtonModel();
 

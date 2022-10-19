@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -88,8 +89,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         bookAuthorTextView.setText(item.mDepto);
         TextView idTextView = holder.mId;
         idTextView.setText(item.mId);
-        TextView ratingTextView = holder.mRating;
-        ratingTextView.setText(String.format("%d/5", item.mRating));
+        RatingBar ratingBar = holder.mRating;
+        ratingBar.setRating(item.mRating);
         ToggleButton toggleButton = holder.mItemFav;
         toggleButton.setChecked(item.mFavorito);
 
@@ -122,7 +123,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         private final TextView mItemNombre;
         private final TextView mItemDepto;
         private final TextView mId;
-        private final TextView mRating;
+        private RatingBar mRating;
         private ToggleButton mItemFav;
 
         public ViewHolder(@NonNull View itemView) {

@@ -12,7 +12,7 @@ public class Item{
     @SerializedName("depto")
     public String mDepto;
     @SerializedName("rating")
-    public Integer mRating;
+    public Float mRating;
     @SerializedName("descripcion")
     public String mDescripcion;
     @SerializedName("tipo")
@@ -27,7 +27,7 @@ public class Item{
     public Item() {
     }
 
-    public Item(String mId, String mNombre, String mImageUrl, String mDepto, Integer mRating, String mDescripcion, String mTipo, String mWaze, String mMaps, Boolean mFavorito) {
+    public Item(String mId, String mNombre, String mImageUrl, String mDepto, Float mRating, String mDescripcion, String mTipo, String mWaze, String mMaps, Boolean mFavorito) {
         this.mId = mId;
         this.mNombre = mNombre;
         this.mImageUrl = mImageUrl;
@@ -60,11 +60,11 @@ public class Item{
         this.mDepto = mDepto;
     }
 
-    public Integer getmRating() {
+    public Float getmRating() {
         return mRating;
     }
 
-    public void setmRating(Integer mRating) {
+    public void setmRating(Float mRating) {
         this.mRating = mRating;
     }
 }

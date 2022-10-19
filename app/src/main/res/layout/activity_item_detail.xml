@@ -47,10 +47,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_detail_nombre"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_rating_details"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="Nombre"
                 android:textStyle="bold"
+                android:layout_marginTop="5dp"
                 />
 
             <TextView
@@ -108,6 +109,17 @@
                 app:layout_constraintStart_toEndOf="@id/item_detail_waze"
                 android:background="@mipmap/ic_maps"
                 android:layout_margin="10dp"/>
+
+            <RatingBar
+                style="?android:attr/ratingBarStyleSmall"
+                android:id="@+id/item_rating_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:numStars="5"
+                android:rating="4"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
