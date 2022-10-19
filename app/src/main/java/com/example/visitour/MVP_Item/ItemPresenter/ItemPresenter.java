@@ -18,13 +18,18 @@ public class ItemPresenter implements IItemPresenter{
     }
 
     @Override
-    public void GetLugares() {
-        itemModel.GetLugares();
+    public void GetLugares(Integer id) {
+        itemModel.GetLugares(id);
     }
 
     @Override
-    public void GetRestaurantes() {
-        itemModel.GetRestaurantes();
+    public void GetRestaurantes(Integer id) {
+        itemModel.GetRestaurantes(id);
+    }
+
+    @Override
+    public void GetFavoritos(Integer id) {
+        itemModel.GetFavoritos(id);
     }
 
     @Override

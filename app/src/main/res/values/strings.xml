@@ -14,11 +14,15 @@
     <string name="validation_correo_valido">Ingrese un correo valido</string>
     <string name="Toast_Registro_Satisfactorio">Registro satisfactorio</string>
     <string name="Toast_error_interno">Error interno</string>
-    <string name="toast_ErrorInterno">Errror Interno</string>
+    <string name="toast_ErrorInterno">Error Interno</string>
     <string name="hint_nacionalidad">Nacionalidad</string>
     <string name="toast_registro_satisfactorio">Registro satisfactorio</string>
     <string name="hint_telefono">Telefono</string>
     <string name="toast_login_incorrecto">Correo o password incorrectos</string>
     <string name="toast_login_exitoso">Inicio de sesion exitoso</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_lugares_turisticos">Lugares Turisticos</string>
+    <string name="menu_restaurantes">Restaurantes</string>
+    <string name="menu_favoritos">Favoritos</string>
+    <string name="menu_perfil">Perfil</string>
 </resources>

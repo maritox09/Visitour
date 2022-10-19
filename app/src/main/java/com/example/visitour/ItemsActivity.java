@@ -1,10 +1,13 @@
 package com.example.visitour;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,19 +50,18 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
         rvItems.setAdapter(adapter);
         rvItems.setLayoutManager(new LinearLayoutManager(this));
 
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+
         binding.navigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.ic_lugares:
-                    if(!lugares){
-                        itemPresenter.GetLugares();
-                        lugares = true;
-                    }
+                    itemPresenter.GetLugares(preferences.getInt("userId",0));
                     break;
                 case R.id.ic_restaurantes:
-                    if(lugares){
-                        itemPresenter.GetRestaurantes();
-                        lugares = false;
-                    }
+                    itemPresenter.GetRestaurantes(preferences.getInt("userId",0));
+                    break;
+                case R.id.ic_favoritos:
+                    itemPresenter.GetFavoritos(preferences.getInt("userId",0));
                     break;
                 case R.id.ic_perfil:
                     break;
@@ -78,7 +80,7 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
         spinnerAtt.setAdapter(arrayAdapterAtt);
         spinnerOrd.setAdapter(arrayAdapterOrd);
 
-        itemPresenter.GetLugares();
+        itemPresenter.GetLugares(preferences.getInt("userId",0));
         lugares = true;
 
         spinnerAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

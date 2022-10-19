@@ -1,6 +1,7 @@
 package com.example.visitour.MVP_Item.ItemModel;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 
 import com.example.visitour.Beans.Item;
 import com.example.visitour.MVP_Item.ItemPresenter.IItemPresenter;
@@ -23,10 +24,10 @@ public class ItemModel implements IItemModel {
     }
 
     @Override
-    public void GetLugares() {
+    public void GetLugares(Integer id) {
         ItemsApi mApi = ApiClient.getInstance().create(ItemsApi.class);
-        Call<List<Item>> bookCall = mApi.getLugares();
-        bookCall.enqueue(new Callback<List<Item>>() {
+        Call<List<Item>> itemCall = mApi.getLugares(id);
+        itemCall.enqueue(new Callback<List<Item>>() {
             @SuppressLint("NewApi")
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
@@ -41,10 +42,28 @@ public class ItemModel implements IItemModel {
     }
 
     @Override
-    public void GetRestaurantes() {
+    public void GetRestaurantes(Integer id) {
         ItemsApi mApi = ApiClient.getInstance().create(ItemsApi.class);
-        Call<List<Item>> bookCall = mApi.getRestaurantes();
-        bookCall.enqueue(new Callback<List<Item>>() {
+        Call<List<Item>> itemCall = mApi.getRestaurantes(id);
+        itemCall.enqueue(new Callback<List<Item>>() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                itemPresenter.OnItemSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Item>> call, Throwable t) {
+                itemPresenter.OnItemFailure(String.valueOf(R.string.toast_ErrorInterno));
+            }
+        });
+    }
+
+    @Override
+    public void GetFavoritos(Integer id) {
+        ItemsApi mApi = ApiClient.getInstance().create(ItemsApi.class);
+        Call<List<Item>> itemCall = mApi.getFavoritos(id);
+        itemCall.enqueue(new Callback<List<Item>>() {
             @SuppressLint("NewApi")
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {

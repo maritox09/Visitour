@@ -18,7 +18,8 @@
             app:itemIconTint="@android:color/holo_red_dark"
             app:itemTextColor="@android:color/holo_red_dark"
             android:layout_alignParentBottom="true"
-            app:menu="@menu/nav_menu"/>
+            app:menu="@menu/nav_menu"
+            app:labelVisibilityMode="unlabeled"/>
 
         <View
             android:layout_width="0dp"

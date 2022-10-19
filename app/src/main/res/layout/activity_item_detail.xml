@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -40,32 +40,74 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="20dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_detail_nombre"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Nombre"
+                android:textStyle="bold"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_detail_depto"
+                app:layout_constraintTop_toBottomOf="@id/item_detail_nombre"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Depto"
+                android:layout_marginTop="15dp"
+                android:textStyle="italic"
+                />
+
+            <ToggleButton
+                android:id="@+id/favorite_toggle_detalle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/item_detail_nombre"
+                android:textOff=""
+                android:textOn=""
+                android:background="@drawable/fav_toggle_selector"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/item_detail_depto"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintTop_toBottomOf="@id/item_detail_nombre"
+                android:id="@+id/item_detail_descripcion"
+                app:layout_constraintTop_toBottomOf="@id/item_detail_depto"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+                android:text="Descripcion larga"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_detail_comollegar"
+                app:layout_constraintTop_toBottomOf="@id/item_detail_descripcion"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="¿Como llegar?"
+                android:layout_marginTop="15dp"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/item_detail_waze"
+                app:layout_constraintTop_toBottomOf="@id/item_detail_comollegar"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@mipmap/ic_waze"
+                android:layout_margin="10dp"/>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/item_detail_maps"
+                app:layout_constraintTop_toBottomOf="@id/item_detail_comollegar"
+                app:layout_constraintStart_toEndOf="@id/item_detail_waze"
+                android:background="@mipmap/ic_maps"
+                android:layout_margin="10dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

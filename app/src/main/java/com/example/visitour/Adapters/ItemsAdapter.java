@@ -3,17 +3,21 @@ package com.example.visitour.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.visitour.Beans.Item;
+import com.example.visitour.MVP_FavButton.FavButtonModel.FavButtonModel_RecyclerView;
+import com.example.visitour.MVP_FavButton.FavButtonModel.IFavButtonModel;
 import com.example.visitour.R;
 import com.example.visitour.ItemDetailActivity;
 
@@ -24,6 +28,8 @@ import java.util.List;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
     private List<Item> mItems;
     private Context context;
+
+    SharedPreferences preferences;
 
     Comparator<Item> compareByNombre = new Comparator<Item>() {
         @Override
@@ -59,6 +65,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     @Override
     public ItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context = parent.getContext();
+        preferences = context.getSharedPreferences("user",Context.MODE_PRIVATE);
 
         LayoutInflater inflater = LayoutInflater.from(this.context);
 
@@ -79,13 +86,28 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         bookNameTextView.setText(item.mNombre);
         TextView bookAuthorTextView = holder.mItemDepto;
         bookAuthorTextView.setText(item.mDepto);
-        TextView urlTextView = holder.mUrl;
-        urlTextView.setText(item.mImageUrl);
+        TextView idTextView = holder.mId;
+        idTextView.setText(item.mId);
         TextView ratingTextView = holder.mRating;
         ratingTextView.setText(String.format("%d/5", item.mRating));
+        ToggleButton toggleButton = holder.mItemFav;
+        toggleButton.setChecked(item.mFavorito);
+
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IFavButtonModel favButtonModel = new FavButtonModel_RecyclerView(ItemsAdapter.this);
+                if(!item.mFavorito){
+                    favButtonModel.Fav(Integer.valueOf(item.mId),preferences.getInt("userId",0));
+                    item.mFavorito = true;
+                } else {
+                    favButtonModel.UnFav(Integer.valueOf(item.mId),preferences.getInt("userId",0));
+                    item.mFavorito = false;
+                }
+            }
+        });
 
         ImageView bookImage = holder.mItemImage;
-
         Glide.with(this.context).load(item.mImageUrl).into(bookImage);
     }
 
@@ -99,8 +121,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         private final ImageView mItemImage;
         private final TextView mItemNombre;
         private final TextView mItemDepto;
-        private final TextView mUrl;
+        private final TextView mId;
         private final TextView mRating;
+        private ToggleButton mItemFav;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,19 +131,19 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             mItemImage = itemView.findViewById(R.id.item_image);
             mItemNombre = itemView.findViewById(R.id.item_nombre);
             mItemDepto = itemView.findViewById(R.id.item_depto);
-            mUrl = itemView.findViewById(R.id.item_image_url);
+            mId = itemView.findViewById(R.id.item_id);
             mRating = itemView.findViewById(R.id.item_rating);
+            mItemFav = itemView.findViewById(R.id.favorite_toggle_rv);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), ItemDetailActivity.class);
-            intent.putExtra("eNombre",mItemNombre.getText().toString());
-            intent.putExtra("eDepto",mItemDepto.getText().toString());
-            intent.putExtra("eUrl",mUrl.getText().toString());
+            intent.putExtra("Item_id",mId.getText().toString());
             view.getContext().startActivity(intent);
         }
+
     }
 
     @SuppressLint("NewApi")

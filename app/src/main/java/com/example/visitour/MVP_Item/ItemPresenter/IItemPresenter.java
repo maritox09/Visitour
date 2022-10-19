@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface IItemPresenter {
 
-    void GetLugares();
-    void GetRestaurantes();
+    void GetLugares(Integer id);
+    void GetRestaurantes(Integer id);
+    void GetFavoritos(Integer id);
     void OnItemSuccess(List<Item> mItems);
     void OnItemFailure(String msg);
 
