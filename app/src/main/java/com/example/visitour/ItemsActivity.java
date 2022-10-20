@@ -1,6 +1,8 @@
 package com.example.visitour;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,8 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
     private Spinner spinnerAtt, spinnerOrd;
     private String[] att = {"Popularidad", "Nombre", "Departamento"};
     private String[] ord = {"Descendente","Ascendente"};
+    SharedPreferences preferences;
+    private String tab = "lug", aspecto = "Populadirad";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +54,24 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
         rvItems.setAdapter(adapter);
         rvItems.setLayoutManager(new LinearLayoutManager(this));
 
-        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
 
         binding.navigationBar.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.ic_lugares:
                     itemPresenter.GetLugares(preferences.getInt("userId",0));
+                    tab = "lug";
+                    ordenar();
                     break;
                 case R.id.ic_restaurantes:
                     itemPresenter.GetRestaurantes(preferences.getInt("userId",0));
+                    tab = "res";
+                    ordenar();
                     break;
                 case R.id.ic_favoritos:
                     itemPresenter.GetFavoritos(preferences.getInt("userId",0));
+                    tab = "fav";
+                    ordenar();
                     break;
                 case R.id.ic_perfil:
                     break;
@@ -87,34 +97,8 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
             @SuppressLint("NewApi")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String aspecto = parent.getItemAtPosition(position).toString();
-                switch (aspecto){
-                    case "Popularidad":
-                        if(order_asc){
-                            try {
-                                adapter.Ord_Rat_Asc(true);
-                            } catch (Exception e){break;}
-                        } else {
-                            try {
-                                adapter.Ord_Rat_Asc(false);
-                            } catch (Exception e) {}
-                        }
-                        break;
-                    case "Nombre":
-                        if(order_asc){
-                            adapter.Ord_Nom_Asc(true);
-                        } else {
-                            adapter.Ord_Nom_Asc(false);
-                        }
-                        break;
-                    case "Departamento":
-                        if(order_asc){
-                            adapter.Ord_Dep_Asc(true);
-                        } else {
-                            adapter.Ord_Dep_Asc(false);
-                        }
-                        break;
-                }
+                aspecto = parent.getItemAtPosition(position).toString();
+                ordenar();
             }
 
             @Override
@@ -166,5 +150,48 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
     @Override
     public void OnItemFailure(String msg) {
         Toast.makeText(ItemsActivity.this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(tab == "lug"){
+            itemPresenter.GetLugares(preferences.getInt("userId",0));
+        } else if (tab == "res"){
+            itemPresenter.GetRestaurantes(preferences.getInt("userId",0));
+        } else if (tab == "fav"){
+            itemPresenter.GetFavoritos(preferences.getInt("userId",0));
+        }
+        ordenar();
+    }
+
+    private void ordenar(){
+        switch (aspecto){
+            case "Popularidad":
+                if(order_asc){
+                    try {
+                        adapter.Ord_Rat_Asc(true);
+                    } catch (Exception e){break;}
+                } else {
+                    try {
+                        adapter.Ord_Rat_Asc(false);
+                    } catch (Exception e) {}
+                }
+                break;
+            case "Nombre":
+                if(order_asc){
+                    adapter.Ord_Nom_Asc(true);
+                } else {
+                    adapter.Ord_Nom_Asc(false);
+                }
+                break;
+            case "Departamento":
+                if(order_asc){
+                    adapter.Ord_Dep_Asc(true);
+                } else {
+                    adapter.Ord_Dep_Asc(false);
+                }
+                break;
+        }
     }
 }
