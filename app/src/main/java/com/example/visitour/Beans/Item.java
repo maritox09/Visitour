@@ -23,11 +23,13 @@ public class Item{
     public String mMaps;
     @SerializedName("favorito")
     public Boolean mFavorito;
+    @SerializedName("urating")
+    public Float mUrating;
 
     public Item() {
     }
 
-    public Item(String mId, String mNombre, String mImageUrl, String mDepto, Float mRating, String mDescripcion, String mTipo, String mWaze, String mMaps, Boolean mFavorito) {
+    public Item(String mId, String mNombre, String mImageUrl, String mDepto, Float mRating, String mDescripcion, String mTipo, String mWaze, String mMaps, Boolean mFavorito, Float mUrating) {
         this.mId = mId;
         this.mNombre = mNombre;
         this.mImageUrl = mImageUrl;
@@ -38,6 +40,7 @@ public class Item{
         this.mWaze = mWaze;
         this.mMaps = mMaps;
         this.mFavorito = mFavorito;
+        this.mUrating = mUrating;
     }
 
     public Item(String mId){

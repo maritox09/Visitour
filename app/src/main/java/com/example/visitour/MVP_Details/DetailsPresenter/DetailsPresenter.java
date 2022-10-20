@@ -29,4 +29,9 @@ public class DetailsPresenter implements IDetailsPresenter{
     public void OnDetailFailure(String msg) {
         detailsView.OnDetailFailure(msg);
     }
+
+    @Override
+    public void RegistrarRating(Integer id, Integer userId, Float rating) {
+        detailsModel.RegistrarRating(id,userId,rating);
+    }
 }

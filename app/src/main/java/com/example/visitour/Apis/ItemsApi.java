@@ -1,5 +1,6 @@
 package com.example.visitour.Apis;
 
+import com.example.visitour.Beans.Comentario;
 import com.example.visitour.Beans.Item;
 
 import java.util.List;
@@ -35,4 +36,20 @@ public interface ItemsApi {
     @FormUrlEncoded
     @POST("/unfav.php")
     Call<String> unfavItem(@Field("id") Integer id, @Field("userId") Integer userId);
+
+    @FormUrlEncoded
+    @POST("/comentarios.php")
+    Call<List<Comentario>> getComentarios(@Field("id") Integer id,@Field("userId") Integer userId);
+
+    @FormUrlEncoded
+    @POST("/nuevocomentario.php")
+    Call<String> comentarioNuevo(@Field("id") Integer id,@Field("userId") Integer userId,@Field("comentario") String comentario);
+
+    @FormUrlEncoded
+    @POST("/borrarcomentario.php")
+    Call<String> borrarComentario(@Field("id") Integer id);
+
+    @FormUrlEncoded
+    @POST("/registrarrating.php")
+    Call<String> registrarRating(@Field("id") Integer id,@Field("userId") Integer userId,@Field("rating") Float rating);
 }

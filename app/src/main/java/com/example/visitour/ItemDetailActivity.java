@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -35,7 +36,8 @@ public class ItemDetailActivity extends AppCompatActivity implements IDetailsVie
     ImageButton detailsWaze, detailsMaps;
     ToggleButton detailsFav;
     SharedPreferences preferences;
-    RatingBar detailsRating;
+    RatingBar detailsRating, ratingBarUsuario;
+    Button detailComentarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class ItemDetailActivity extends AppCompatActivity implements IDetailsVie
         detailsWaze = binding.itemDetailWaze;
         detailsMaps = binding.itemDetailMaps;
         detailsRating = binding.itemRatingDetails;
+        detailComentarios = binding.itemDetailsVerComentarios;
+        ratingBarUsuario = binding.ratingUsuario;
 
         Bundle bundle = getIntent().getExtras();
 
@@ -100,6 +104,34 @@ public class ItemDetailActivity extends AppCompatActivity implements IDetailsVie
                 Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(item.mMaps));
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);
+            }
+        });
+
+        detailComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ComentariosActivity.class);
+                intent.putExtra("id",Integer.valueOf(item.mId));
+                startActivity(intent);
+            }
+        });
+
+        if (item.mUrating == 0){
+            ratingBarUsuario.setIsIndicator(false);
+            ratingBarUsuario.setRating(0);
+        } else {
+            ratingBarUsuario.setIsIndicator(true);
+            ratingBarUsuario.setRating(item.mUrating);
+        }
+
+        ratingBarUsuario.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if(fromUser){
+                    detailsPresenter.RegistrarRating(Integer.valueOf(item.mId),preferences.getInt("userId",0),rating);
+                    Toast.makeText(getApplicationContext(),"Tu puntaje ha sido registrado",Toast.LENGTH_SHORT).show();
+                    ratingBarUsuario.setIsIndicator(true);
+                }
             }
         });
     }

@@ -34,4 +34,19 @@ public class DetailsModel implements IDetailsModel{
             }
         });
     }
+
+    @Override
+    public void RegistrarRating(Integer id, Integer userId, Float rating) {
+        ItemsApi mApi = ApiClient.getInstance().create(ItemsApi.class);
+        Call<String> itemCall = mApi.registrarRating(id,userId,rating);
+        itemCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+            }
+        });
+    }
 }

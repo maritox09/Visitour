@@ -6,4 +6,5 @@ public interface IDetailsPresenter {
     void GetDetails(Integer mId, Integer mUserId);
     void OnDetailSuccess(Item item);
     void OnDetailFailure(String msg);
+    void RegistrarRating(Integer id, Integer userId, Float rating);
 }
