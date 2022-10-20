@@ -3,15 +3,20 @@
     <item
         android:id="@+id/ic_lugares"
         android:icon="@drawable/ic_lugares"
-        android:title="Lugares Turisticos"/>
+        android:title="@string/menu_lugares_turisticos"/>
 
     <item
         android:id="@+id/ic_restaurantes"
         android:icon="@drawable/ic_restaurantes"
-        android:title="Restaurantes"/>
+        android:title="@string/menu_restaurantes"/>
+
+    <item
+        android:id="@+id/ic_favoritos"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/menu_favoritos"/>
 
     <item
         android:id="@+id/ic_perfil"
         android:icon="@drawable/ic_perfil"
-        android:title="Mi perfil"/>
+        android:title="@string/menu_perfil"/>
 </menu>

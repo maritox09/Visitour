@@ -17,13 +17,12 @@
         android:id="@+id/item_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_image"
         app:layout_constraintStart_toEndOf="@id/item_image"
         android:layout_marginStart="20dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Los juegos del hambre"/>
+        android:text="Nombre"/>
 
     <TextView
         android:id="@+id/item_depto"
@@ -31,22 +30,24 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/item_nombre"
         app:layout_constraintStart_toEndOf="@id/item_image"
-        android:text="J.K. Rowling"
+        android:text="Depto"
         android:textSize="16sp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="10dp"
+        android:textStyle="italic"/>
 
-    <TextView
+    <RatingBar
+        style="?android:attr/ratingBarStyleSmall"
         android:id="@+id/item_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_nombre"
-        android:layout_marginRight="25dp"
-        android:text="5/5"
-        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/item_image"
+        app:layout_constraintTop_toBottomOf="@id/item_depto"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="10dp"
+        android:numStars="5"
+        android:rating="4"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +55,18 @@
         app:layout_constraintTop_toBottomOf="@id/item_nombre"
         android:width="0dp"
         android:height="0dp"
-        android:id="@+id/item_image_url"
+        android:id="@+id/item_id"
         />
+
+    <ToggleButton
+        android:id="@+id/favorite_toggle_rv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/item_rating"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/fav_toggle_selector"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
