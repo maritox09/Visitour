@@ -30,6 +30,9 @@ public class LandingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        verificarSesion();
+
         ActivityLandingBinding mainBinding = ActivityLandingBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
 
@@ -107,5 +110,20 @@ public class LandingActivity extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        verificarSesion();
+    }
+
+    private void verificarSesion(){
+        SharedPreferences sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt("userId",-1);
+        if(id != -1){
+            Intent intent = new Intent(getApplicationContext(), ItemsActivity.class);
+            startActivity(intent);
+        }
     }
 }

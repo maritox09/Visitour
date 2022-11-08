@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PerfilActivity"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="¡Hola!"
+        android:textSize="60sp"
+        android:id="@+id/saludo"/>
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/saludo"
+        android:layout_margin="10dp"
+        android:id="@+id/perfil_nombre"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/perfil_nombre"
+        android:layout_margin="10dp"
+        android:id="@+id/perfil_apellido"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/perfil_apellido"
+        android:layout_margin="10dp"
+        android:id="@+id/perfil_nacionalidad"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/perfil_nacionalidad"
+        android:layout_margin="10dp"
+        android:id="@+id/perfil_telefono"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/perfil_telefono"
+        android:id="@+id/perfil_editar"
+        android:layout_margin="25dp"
+        android:text="Editar perfil"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/perfil_editar"
+        android:id="@+id/perfil_cerrar"
+        android:layout_margin="25dp"
+        android:text="Cerrar sesion"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

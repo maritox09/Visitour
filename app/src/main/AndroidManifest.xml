@@ -16,12 +16,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PerfilActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ComentariosActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value=""
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait"
+                android:value="" />
         </activity>
         <activity
             android:name=".ItemDetailActivity"

@@ -1,14 +1,12 @@
 package com.example.visitour;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.OnLifecycleEvent;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -74,6 +72,7 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
                     ordenar();
                     break;
                 case R.id.ic_perfil:
+                    startActivity(new Intent(this,PerfilActivity.class));
                     break;
             }
             return true;
@@ -81,8 +80,8 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
 
         spinnerAtt = binding.spinnerAtt;
         spinnerOrd = binding.spinnerOrd;
-        ArrayAdapter<String> arrayAdapterAtt = new ArrayAdapter<String>(ItemsActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,att);
-        ArrayAdapter<String> arrayAdapterOrd = new ArrayAdapter<String>(ItemsActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,ord);
+        ArrayAdapter<String> arrayAdapterAtt = new ArrayAdapter<>(ItemsActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, att);
+        ArrayAdapter<String> arrayAdapterOrd = new ArrayAdapter<>(ItemsActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, ord);
 
         arrayAdapterAtt.setDropDownViewResource(androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item);
         arrayAdapterOrd.setDropDownViewResource(androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item);
@@ -155,12 +154,16 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
     @Override
     public void onResume(){
         super.onResume();
-        if(tab == "lug"){
-            itemPresenter.GetLugares(preferences.getInt("userId",0));
-        } else if (tab == "res"){
-            itemPresenter.GetRestaurantes(preferences.getInt("userId",0));
-        } else if (tab == "fav"){
-            itemPresenter.GetFavoritos(preferences.getInt("userId",0));
+        switch (tab) {
+            case "lug":
+                itemPresenter.GetLugares(preferences.getInt("userId", 0));
+                break;
+            case "res":
+                itemPresenter.GetRestaurantes(preferences.getInt("userId", 0));
+                break;
+            case "fav":
+                itemPresenter.GetFavoritos(preferences.getInt("userId", 0));
+                break;
         }
         ordenar();
     }
