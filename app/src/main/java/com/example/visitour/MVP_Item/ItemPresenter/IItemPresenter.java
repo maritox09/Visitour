@@ -12,5 +12,6 @@ public interface IItemPresenter {
     void GetNear(Integer id, Float longitud, Float latitud);
     void OnItemSuccess(List<Item> mItems);
     void OnItemFailure(String msg);
+    void OnNearSuccess(List<Item> mItems);
 
 }

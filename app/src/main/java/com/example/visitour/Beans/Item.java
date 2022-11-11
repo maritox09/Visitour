@@ -27,6 +27,8 @@ public class Item{
     public Float mUrating;
     @SerializedName("distancia")
     public String mDistancia;
+    @SerializedName("distanciaf")
+    public Float mDistanciaf;
 
     public Item() {
     }
@@ -71,5 +73,13 @@ public class Item{
 
     public void setmRating(Float mRating) {
         this.mRating = mRating;
+    }
+
+    public Float getmDistanciaf() {
+        return mDistanciaf;
+    }
+
+    public void setmDistanciaf(Float mDistanciaf) {
+        this.mDistanciaf = mDistanciaf;
     }
 }

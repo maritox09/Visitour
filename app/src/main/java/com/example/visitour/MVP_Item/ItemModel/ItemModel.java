@@ -85,7 +85,7 @@ public class ItemModel implements IItemModel {
             @SuppressLint("NewApi")
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                itemPresenter.OnItemSuccess(response.body());
+                itemPresenter.OnNearSuccess(response.body());
             }
 
             @Override

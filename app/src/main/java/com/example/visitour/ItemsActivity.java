@@ -1,7 +1,9 @@
 package com.example.visitour;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -26,10 +30,15 @@ import com.example.visitour.MVP_Item.ItemPresenter.IItemPresenter;
 import com.example.visitour.MVP_Item.ItemPresenter.ItemPresenter;
 import com.example.visitour.MVP_Item.ItemView.IItemView;
 import com.example.visitour.databinding.ActivityItemsBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemsActivity extends AppCompatActivity implements IItemView {
 
@@ -41,11 +50,13 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
     private Spinner spinnerAtt, spinnerOrd;
     private String[] att = {"Popularidad", "Nombre", "Departamento"};
     private String[] ord = {"Descendente", "Ascendente"};
+    private String[] vac = {};
     SharedPreferences preferences;
     private String tab = "lug", aspecto = "Populadirad";
+    private float longitud, latitud;
 
-    LocationManager lm;
-    Location location;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private final static int REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +66,9 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
 
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         itemPresenter = new ItemPresenter(this);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        getLastLocation();
 
         RecyclerView rvItems = binding.rvLugares;
         adapter = new ItemsAdapter(new ArrayList<>());
@@ -139,10 +153,8 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
                     ordenar();
                     break;
                 case R.id.ic_cercademi:
-                    double lon = location.getLongitude();
-                    double lat = location.getLatitude();
                     tab = "near";
-                    itemPresenter.GetNear(preferences.getInt("userId",0), (float) lon, (float) lat);
+                    itemPresenter.GetNear(preferences.getInt("userId",0), latitud, longitud);
                     break;
                 case R.id.ic_perfil:
                     startActivity(new Intent(this,PerfilActivity.class));
@@ -158,6 +170,14 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
         order_asc = false;
         adapter.reloadData(mItems);
         adapter.Ord_Rat_Asc(false);
+    }
+
+    @Override
+    public void OnNearSuccess(List<Item> mItems) {
+        this.mItems = mItems;
+        order_asc = false;
+        adapter.reloadData(mItems);
+        adapter.Ord_Dist();
     }
 
     @Override
@@ -179,9 +199,7 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
                 itemPresenter.GetFavoritos(preferences.getInt("userId", 0));
                 break;
             case "near":
-                double lon = location.getLongitude();
-                double lat = location.getLatitude();
-                itemPresenter.GetNear(preferences.getInt("userId",0), (float) lon, (float) lat);
+                itemPresenter.GetNear(preferences.getInt("userId",0), longitud, latitud);
                 break;
         }
         ordenar();
@@ -215,5 +233,47 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
                 }
                 break;
         }
+    }
+
+    public void getLastLocation(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location!=null){
+                        Geocoder geocoder= new Geocoder(ItemsActivity.this, Locale.getDefault());
+                        List<Address> addresses= null;
+                        try {
+                            addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                            latitud = (float) addresses.get(0).getLatitude();
+                            longitud = (float) addresses.get(0).getLongitude();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }else{
+            askPermission();
+        }
+    }
+
+    public void askPermission(){
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode==REQUEST_CODE){
+            if (grantResults.length>0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                getLastLocation();
+            }else {
+                Toast.makeText(this, "Es necesario tener el permiso de la aplicación", Toast.LENGTH_SHORT).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

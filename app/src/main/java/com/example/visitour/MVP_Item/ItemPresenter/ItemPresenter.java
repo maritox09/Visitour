@@ -46,4 +46,9 @@ public class ItemPresenter implements IItemPresenter{
     public void OnItemFailure(String msg) {
         itemView.OnItemFailure(msg);
     }
+
+    @Override
+    public void OnNearSuccess(List<Item> mItems) {
+        itemView.OnNearSuccess(mItems);
+    }
 }

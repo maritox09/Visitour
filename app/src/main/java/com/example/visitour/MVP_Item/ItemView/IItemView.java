@@ -7,6 +7,7 @@ import java.util.List;
 public interface IItemView {
 
     void OnItemSuccess(List<Item> mItems);
+    void OnNearSuccess(List<Item> mItems);
     void OnItemFailure(String msg);
 
 }

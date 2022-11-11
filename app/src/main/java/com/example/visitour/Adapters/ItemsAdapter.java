@@ -53,6 +53,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         }
     };
 
+    Comparator<Item> compareByDist = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return o1.getmDistanciaf().compareTo(o2.getmDistanciaf());
+        }
+    };
+
     public ItemsAdapter(List<Item> mItems) {
         this.mItems = mItems;
     }
@@ -181,5 +188,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             }
             reloadData(mItems);
         } catch (Exception e ){}
+    }
+
+    @SuppressLint("NewApi")
+    public void Ord_Dist(){
+        Collections.sort(mItems,compareByDist);
+        reloadData(mItems);
     }
 }
