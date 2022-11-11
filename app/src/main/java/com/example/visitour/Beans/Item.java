@@ -25,6 +25,8 @@ public class Item{
     public Boolean mFavorito;
     @SerializedName("urating")
     public Float mUrating;
+    @SerializedName("distancia")
+    public String mDistancia;
 
     public Item() {
     }

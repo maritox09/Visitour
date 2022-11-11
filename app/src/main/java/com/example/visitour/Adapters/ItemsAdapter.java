@@ -93,6 +93,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         ratingBar.setRating(item.mRating);
         ToggleButton toggleButton = holder.mItemFav;
         toggleButton.setChecked(item.mFavorito);
+        TextView distancia = holder.mDistancia;
+        distancia.setText(item.mDistancia);
 
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +125,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         private final TextView mItemNombre;
         private final TextView mItemDepto;
         private final TextView mId;
+        private TextView mDistancia;
         private RatingBar mRating;
         private ToggleButton mItemFav;
 
@@ -133,6 +136,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             mItemNombre = itemView.findViewById(R.id.item_nombre);
             mItemDepto = itemView.findViewById(R.id.item_depto);
             mId = itemView.findViewById(R.id.item_id);
+            mDistancia = itemView.findViewById(R.id.item_distancia);
             mRating = itemView.findViewById(R.id.item_rating);
             mItemFav = itemView.findViewById(R.id.favorite_toggle_rv);
             itemView.setOnClickListener(this);

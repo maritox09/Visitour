@@ -2,6 +2,7 @@ package com.example.visitour.Apis;
 
 import com.example.visitour.Beans.Comentario;
 import com.example.visitour.Beans.Item;
+import com.example.visitour.Beans.Usuario;
 
 import java.util.List;
 
@@ -52,4 +53,16 @@ public interface ItemsApi {
     @FormUrlEncoded
     @POST("/registrarrating.php")
     Call<String> registrarRating(@Field("id") Integer id,@Field("userId") Integer userId,@Field("rating") Float rating);
+
+    @FormUrlEncoded
+    @POST("/perfil.php")
+    Call<Usuario> getPerfil(@Field("id") Integer id);
+
+    @FormUrlEncoded
+    @POST("/actualizarperfil.php")
+    Call<String> savePerfil(@Field("id") Integer id, @Field("nombre") String nombre, @Field("apellido") String apellido, @Field("correo") String correo,@Field("nacionalidad") String nacionalidad,@Field("telefono") String telefono);
+
+    @FormUrlEncoded
+    @POST("/nearme.php")
+    Call<List<Item>> getNear(@Field("id") Integer id, @Field("longitud") float longitud, @Field("latitud") float latitud);
 }

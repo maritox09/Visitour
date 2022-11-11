@@ -16,6 +16,11 @@
         android:title="@string/menu_favoritos"/>
 
     <item
+        android:id="@+id/ic_cercademi"
+        android:icon="@drawable/ic_baseline_share_location_24"
+        android:title="@string/menu_cerca_de_mi"/>
+
+    <item
         android:id="@+id/ic_perfil"
         android:icon="@drawable/ic_perfil"
         android:title="@string/menu_perfil"/>

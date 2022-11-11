@@ -76,4 +76,22 @@ public class ItemModel implements IItemModel {
             }
         });
     }
+
+    @Override
+    public void GetNear(Integer id, Float longitud, Float latitud) {
+        ItemsApi mApi = ApiClient.getInstance().create(ItemsApi.class);
+        Call<List<Item>> itemCall = mApi.getNear(id,longitud,latitud);
+        itemCall.enqueue(new Callback<List<Item>>() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                itemPresenter.OnItemSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Item>> call, Throwable t) {
+                itemPresenter.OnItemFailure(String.valueOf(R.string.toast_ErrorInterno));
+            }
+        });
+    }
 }

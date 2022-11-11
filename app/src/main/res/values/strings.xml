@@ -25,4 +25,5 @@
     <string name="menu_restaurantes">Restaurantes</string>
     <string name="menu_favoritos">Favoritos</string>
     <string name="menu_perfil">Perfil</string>
+    <string name="menu_cerca_de_mi">Cerca de mi</string>
 </resources>

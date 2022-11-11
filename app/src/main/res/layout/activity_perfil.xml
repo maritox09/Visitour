@@ -48,15 +48,24 @@
         app:layout_constraintTop_toBottomOf="@id/perfil_nacionalidad"
         android:layout_margin="10dp"
         android:id="@+id/perfil_telefono"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/perfil_telefono"
+        android:layout_margin="10dp"
+        android:id="@+id/perfil_correo"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/perfil_telefono"
+        app:layout_constraintTop_toBottomOf="@id/perfil_correo"
         android:id="@+id/perfil_editar"
         android:layout_margin="25dp"
-        android:text="Editar perfil"/>
+        android:text="Guardar perfil"/>
 
     <Button
         android:layout_width="match_parent"

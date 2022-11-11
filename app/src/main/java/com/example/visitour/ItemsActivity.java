@@ -1,13 +1,18 @@
 package com.example.visitour;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,9 +40,12 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
     private ActivityItemsBinding binding;
     private Spinner spinnerAtt, spinnerOrd;
     private String[] att = {"Popularidad", "Nombre", "Departamento"};
-    private String[] ord = {"Descendente","Ascendente"};
+    private String[] ord = {"Descendente", "Ascendente"};
     SharedPreferences preferences;
     private String tab = "lug", aspecto = "Populadirad";
+
+    LocationManager lm;
+    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,38 +53,13 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
         binding = ActivityItemsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         itemPresenter = new ItemPresenter(this);
 
-        RecyclerView rvItems = findViewById(R.id.rv_lugares);
+        RecyclerView rvItems = binding.rvLugares;
         adapter = new ItemsAdapter(new ArrayList<>());
         rvItems.setAdapter(adapter);
         rvItems.setLayoutManager(new LinearLayoutManager(this));
-
-        preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-
-        binding.navigationBar.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
-                case R.id.ic_lugares:
-                    itemPresenter.GetLugares(preferences.getInt("userId",0));
-                    tab = "lug";
-                    ordenar();
-                    break;
-                case R.id.ic_restaurantes:
-                    itemPresenter.GetRestaurantes(preferences.getInt("userId",0));
-                    tab = "res";
-                    ordenar();
-                    break;
-                case R.id.ic_favoritos:
-                    itemPresenter.GetFavoritos(preferences.getInt("userId",0));
-                    tab = "fav";
-                    ordenar();
-                    break;
-                case R.id.ic_perfil:
-                    startActivity(new Intent(this,PerfilActivity.class));
-                    break;
-            }
-            return true;
-        });
 
         spinnerAtt = binding.spinnerAtt;
         spinnerOrd = binding.spinnerOrd;
@@ -89,8 +72,6 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
         spinnerAtt.setAdapter(arrayAdapterAtt);
         spinnerOrd.setAdapter(arrayAdapterOrd);
 
-        itemPresenter.GetLugares(preferences.getInt("userId",0));
-        lugares = true;
 
         spinnerAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("NewApi")
@@ -136,6 +117,39 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
 
             }
         });
+
+        itemPresenter.GetLugares(preferences.getInt("userId",0));
+        lugares = true;
+
+        binding.navigationBar.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.ic_lugares:
+                    itemPresenter.GetLugares(preferences.getInt("userId",0));
+                    tab = "lug";
+                    ordenar();
+                    break;
+                case R.id.ic_restaurantes:
+                    itemPresenter.GetRestaurantes(preferences.getInt("userId",0));
+                    tab = "res";
+                    ordenar();
+                    break;
+                case R.id.ic_favoritos:
+                    itemPresenter.GetFavoritos(preferences.getInt("userId",0));
+                    tab = "fav";
+                    ordenar();
+                    break;
+                case R.id.ic_cercademi:
+                    double lon = location.getLongitude();
+                    double lat = location.getLatitude();
+                    tab = "near";
+                    itemPresenter.GetNear(preferences.getInt("userId",0), (float) lon, (float) lat);
+                    break;
+                case R.id.ic_perfil:
+                    startActivity(new Intent(this,PerfilActivity.class));
+                    break;
+            }
+            return true;
+        });
     }
 
     @Override
@@ -156,13 +170,18 @@ public class ItemsActivity extends AppCompatActivity implements IItemView {
         super.onResume();
         switch (tab) {
             case "lug":
-                itemPresenter.GetLugares(preferences.getInt("userId", 0));
+                //itemPresenter.GetLugares(preferences.getInt("userId", 0));
                 break;
             case "res":
                 itemPresenter.GetRestaurantes(preferences.getInt("userId", 0));
                 break;
             case "fav":
                 itemPresenter.GetFavoritos(preferences.getInt("userId", 0));
+                break;
+            case "near":
+                double lon = location.getLongitude();
+                double lat = location.getLatitude();
+                itemPresenter.GetNear(preferences.getInt("userId",0), (float) lon, (float) lat);
                 break;
         }
         ordenar();

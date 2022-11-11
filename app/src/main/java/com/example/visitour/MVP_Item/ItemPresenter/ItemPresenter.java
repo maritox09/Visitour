@@ -33,6 +33,11 @@ public class ItemPresenter implements IItemPresenter{
     }
 
     @Override
+    public void GetNear(Integer id, Float longitud, Float latitud) {
+        itemModel.GetNear(id,longitud,latitud);
+    }
+
+    @Override
     public void OnItemSuccess(List<Item> mItems) {
         itemView.OnItemSuccess(mItems);
     }
